@@ -1,4 +1,6 @@
 import de.itemis.mps.gradle.GitBasedVersioning
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -151,9 +153,11 @@ java {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.apiVersion = kotlinApiVersion
-    kotlinOptions.allWarningsAsErrors = true
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_1_8
+        apiVersion = KotlinVersion.fromVersion(kotlinApiVersion)
+        allWarningsAsErrors = true
+    }
 }
 
 apiValidation {

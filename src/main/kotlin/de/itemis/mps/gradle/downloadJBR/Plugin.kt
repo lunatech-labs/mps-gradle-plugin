@@ -41,19 +41,19 @@ open class DownloadJbrProjectPlugin : Plugin<Project> {
                         delete(extension.downloadDirProperty)
                         val downloadDir = mkdir(extension.downloadDirProperty)
 
-                        exec {
+                        providers.exec {
                             commandLine("tar", "-xzf", configuration.singleFile.absolutePath)
                             workingDir = downloadDir
                         }
 
                         if (downloadDir.listFiles { _, name -> name.startsWith("jbr_") || name.startsWith("jbr-") }!!.any()) {
-                            exec {
+                            providers.exec {
                                 commandLine("sh", "-c", "mv jbr* jbr")
                                 workingDir = downloadDir
                             }
                         }
 
-                        exec {
+                        providers.exec {
                             commandLine("chmod", "-R", "u+w", ".")
                             workingDir = downloadDir
                         }

@@ -1,6 +1,5 @@
 package de.itemis.mps.gradle;
 
-import org.gradle.api.Action
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
@@ -9,9 +8,7 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
-import org.gradle.process.JavaExecSpec
 import java.io.File
-import java.util.*
 
 open class RunAntScript : DefaultTask() {
     @Input
@@ -93,7 +90,7 @@ internal fun Project.runAnt(executable: Any?, workingDir: File, args: List<Strin
 ) {
     val effectiveExecutable = executable ?: project.findProperty("itemis.mps.gradle.ant.defaultJavaExecutable")
 
-    project.javaexec {
+    providers.javaexec {
         if (effectiveExecutable != null) {
             executable(effectiveExecutable)
         }
